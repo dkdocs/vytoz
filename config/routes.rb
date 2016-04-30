@@ -1,6 +1,7 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
+
   devise_for :admin_users, ActiveAdmin::Devise.config
 
  authenticate :admin_user do
@@ -49,6 +50,9 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :reviews
+
+
   end
 end
 
@@ -79,4 +83,6 @@ end
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
 end

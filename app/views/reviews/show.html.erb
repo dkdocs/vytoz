@@ -1,0 +1,26 @@
+<p>
+	<strong>Title:</strong>
+	<%= @review.title %>
+</p>
+
+<p>
+	<strong>Customer:</strong>
+	<%= @review.customer_id %>
+</p>
+
+<p>
+	<strong>Hotel:</strong>
+	<%= @review.hotel_id %>	
+</p>
+
+<p>
+	<strong>Menu Item:</strong>
+	<%= @review.menu_item_id %>	
+</p>
+
+<p>
+	<strong>Review:</strong>
+	<%= @review.review %>
+</p>
+<%= link_to 'Edit', edit_review_path(@review) %>
+<%= link_to 'Back', reviews_path %>
