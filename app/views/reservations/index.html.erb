@@ -1,0 +1,40 @@
+<h1>Listing All Reservations</h1>
+
+<table>
+	<tr>
+		<th>
+			Hotel Id
+		</th>
+		<th>
+			Table Id
+		</th>
+		<th>
+			Customer Id
+		</th>
+		<th>
+			Status
+		</th>
+		<th>
+			Comment
+		</th>
+
+		<th colspan="2">
+		</th>
+	</tr>
+
+	<% @reservations.each do |reservation| %>
+		<tr>
+			<td><%= reservation.hotel_id %></td>
+			<td><%= reservation.table_id %></td>
+			<td><%= reservation.customer_id %></td>
+			<td><%= reservation.status %></td>
+			<td><%= reservation.comment %></td>
+			<td><%= link_to 'Show', reservation_path(reservation) %></td>
+			<td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
+			<td><%= link_to 'Cancel' %></td>
+			<td><%= link_to 'Destroy', reservation_path(reservation), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to 'New Reservation', new_review_path %>
