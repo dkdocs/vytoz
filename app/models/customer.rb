@@ -6,12 +6,15 @@ class Customer < ActiveRecord::Base
 	has_many :tables, through: :reservations
 	
 	def authenticate(passkey)
-	self.password == passkey 
+		self.password == passkey 
 	end
 
 	def allowed_to_login
-    return true #if verified_phone
-  end
+    	return true #if verified_phone
+	end
 
+	def cart
+    	Cartman::Cart.new(id)
+  	end
 
 end

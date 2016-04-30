@@ -1,9 +1,22 @@
-class CustomersController < ApplicationController
+class Api::V1::CustomersController < Api::V1::ApiController
 include CustomersHelper
 
 before_filter :is_hotel_logged_in?, :only => [:login]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   VALID_PHONE_REGEX = /\A^[0-9+]{10}$\z/
+
+	respond_to :json
+
+	swagger_controller :customers, "Customer"
+
+
+	swagger_api :login do
+	summary 'Customer Login'
+	
+	param :form, :email, :string, :required, "Email ID"
+  param :form, :password, :string, :required, "Password"
+   
+	end
 
 def login
 	if login_params
@@ -21,6 +34,15 @@ def login
 	end
 end
 	
+	swagger_api :signup do
+	summary 'Customer Signup'
+	
+	param :form, :email, :string, :required, "Email ID"
+  param :form, :password, :string, :required, "Password"
+  param :form, :name, :string, :required, "Name"
+  param :form, :phone, :string, :required, "Phone Number"
+	end
+
 	def signup
 		if signup_params[:email] =~ VALID_EMAIL_REGEX
 			if Customer.find_by_email(signup_params[:email])
@@ -40,6 +62,13 @@ end
 	  else
 	  	render json: {status: 401, message: "Invalid Params"}
 	  end
+	end
+
+	swagger_api :logout do
+	summary 'Customer Logout'
+	
+	param :form, :session_id, :string, :required, "Session ID"
+   
 	end
 
 	def logout

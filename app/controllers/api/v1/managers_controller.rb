@@ -3,22 +3,45 @@ include ManagersHelper
 VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 VALID_PHONE_REGEX = /\A^[0-9+]{10}$\z/
 
-def login
-	if login_params
-		if @manager = Manager.find_by_email(login_params[:email])
-			if @manager.authenticate(login_params[:password])
-				render json: {status: 200, message: "Manager Logged in!", session_id: generate_session.session_id}
+	respond_to :json
+
+	swagger_controller :managers, "Manager"
+
+
+	swagger_api :login do
+	summary 'Manager Login'
+	
+	param :form, :email, :string, :required, "Email ID"
+  param :form, :password, :string, :required, "Password"
+   
+	end
+
+	def login
+		if login_params
+			if @manager = Manager.find_by_email(login_params[:email])
+				if @manager.authenticate(login_params[:password])
+					render json: {status: 200, message: "Manager Logged in!", session_id: generate_session.session_id}
+				else
+					render json: {status: 405, message: "Password does not match"}
+				end
 			else
-				render json: {status: 405, message: "Password does not match"}
+				render json: {status: 404, message: "Please sign up first."}
 			end
 		else
-			render json: {status: 404, message: "Please sign up first."}
+			render json: {status: 401, message: "Invalid params"}
 		end
-	else
-		render json: {status: 401, message: "Invalid params"}
-	end
 	end
 	
+
+	swagger_api :signup do
+	summary 'Manager Signup'
+	
+	param :form, :email, :string, :required, "Email ID"
+  param :form, :password, :string, :required, "Password"
+  param :form, :name, :string, :required, "Name"
+  param :form, :phone, :string, :required, "Phone Number"
+	end
+
 	def signup
 	if signup_params[:email] =~ VALID_EMAIL_REGEX
 		if Manager.find_by_email(signup_params[:email])
@@ -39,6 +62,14 @@ def login
 	  	render json: {status: 401, message: "Invalid Params"}
 	  end
 	end
+
+	swagger_api :logout do
+	summary 'Manager Logout'
+	
+	param :form, :session_id, :string, :required, "Session ID"
+   
+	end
+
 
 	def logout
 		if session = Session.find_by_session_id(params[:session_id])
