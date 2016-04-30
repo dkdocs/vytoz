@@ -1,9 +1,19 @@
 {
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
-  "basePath": "localhost:3000",
+  "basePath": "http://localhost:3000/",
   "apis": [
-
-  ],
-  "authorizations": null
+    {
+      "path": "/apidocs/api/v1/managers.{format}",
+      "description": "Manager"
+    },
+    {
+      "path": "/apidocs/api/v1/hotels.{format}",
+      "description": "Hotel"
+    },
+    {
+      "path": "/apidocs/api/v1/customers.{format}",
+      "description": "Customer"
+    }
+  ]
 }

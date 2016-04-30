@@ -1,4 +1,5 @@
-class ManagersController < ApplicationController
+class Api::V1::ManagersController < Api::V1::ApiController
+	
 include ManagersHelper
 VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 VALID_PHONE_REGEX = /\A^[0-9+]{10}$\z/
@@ -12,7 +13,7 @@ VALID_PHONE_REGEX = /\A^[0-9+]{10}$\z/
 	summary 'Manager Login'
 	
 	param :form, :email, :string, :required, "Email ID"
-  param :form, :password, :string, :required, "Password"
+  	param :form, :password, :string, :required, "Password"
    
 	end
 

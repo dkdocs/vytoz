@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Api::V1::SessionsController < Api::V1::ApiController
 
 	def generate_session
 		device = Device.find_by_device_id(params[:device_id])

@@ -1,4 +1,4 @@
-class HotelsController < ApplicationController
+class Api::V1::HotelsController < Api::V1::ApiController
 include HotelsHelper
 before_filter :is_manager_logged_in, :only => [:signup, :login]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
