@@ -50,7 +50,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :reviews
+    resources :reviews do
+      
+    end
 
 
   end

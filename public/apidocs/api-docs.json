@@ -14,6 +14,10 @@
     {
       "path": "/apidocs/api/v1/customers.{format}",
       "description": "Customer"
+    },
+    {
+      "path": "/apidocs/api/v1/reviews.{format}",
+      "description": " Reviews Controller"
     }
   ]
 }

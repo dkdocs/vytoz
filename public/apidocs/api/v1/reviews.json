@@ -1,0 +1,18 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000/",
+  "resourcePath": "/reviews",
+  "apis": [
+    {
+      "path": "/reviews",
+      "operations": [
+        {
+          "summary": "Lists all the reviews",
+          "method": "get",
+          "nickname": "Api::V1::Reviews#index"
+        }
+      ]
+    }
+  ]
+}
