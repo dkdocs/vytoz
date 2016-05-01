@@ -1,4 +1,4 @@
-class ReservationsController < ApplicationController
+class Api::V1::ReservationsController < AApi::V1::ApiController
 	
 	def index
 		@reservations = Reservation.all
