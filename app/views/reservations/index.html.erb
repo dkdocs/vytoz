@@ -31,7 +31,7 @@
 			<td><%= reservation.comment %></td>
 			<td><%= link_to 'Show', reservation_path(reservation) %></td>
 			<td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
-			<td><%= link_to 'Cancel' %></td>
+			<td><%= link_to 'Cancel', cancel_reservation_path(reservation) %></td>
 			<td><%= link_to 'Destroy', reservation_path(reservation), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		</tr>
 	<% end %>

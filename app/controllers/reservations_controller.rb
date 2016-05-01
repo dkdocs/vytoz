@@ -36,6 +36,16 @@ class ReservationsController < ApplicationController
 		end
 	end
 
+	def cancel
+		@reservation = Reservation.find(params[:id])
+		@reservation.status = "hotel_cancelled"
+		@reservation.save
+
+		@table = Table.find(@reservation.table_id)
+		@table.status = false
+		@table.save
+	end;
+
 	def destroy
 		@reservation = Reservation.find(params[:id])
 		@reservation.destroy
