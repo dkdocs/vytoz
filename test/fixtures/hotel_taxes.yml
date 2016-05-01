@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hotel_id: 
+  tax_type_id: 
+  amount: 9.99
+  percent: 9.99
+  active: false
+
+two:
+  hotel_id: 
+  tax_type_id: 
+  amount: 9.99
+  percent: 9.99
+  active: false

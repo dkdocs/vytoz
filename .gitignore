@@ -15,3 +15,5 @@
 /log/*
 !/log/.keep
 /tmp
+
+/public/api/v1/apidocs/

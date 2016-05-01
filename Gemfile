@@ -25,6 +25,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "rails-erd"
+
+gem 'hiredis'
+gem 'redis', :require => ["redis", "redis/connection/hiredis"]
+gem 'redis-rails'
+gem 'redis-rack-cache'
+gem 'rack-cache'
+gem 'cartman'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -33,7 +40,9 @@ gem "rails-erd"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'activeadmin', github: 'activeadmin'
+gem 'swagger-docs', github: 'Poncho-Box8/swagger-docs'
+gem 'devise'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
