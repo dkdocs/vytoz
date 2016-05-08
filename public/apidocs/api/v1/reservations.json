@@ -5,6 +5,84 @@
   "resourcePath": "/reservations",
   "apis": [
     {
+      "path": "/reservations/{id}/cancel",
+      "operations": [
+        {
+          "summary": "Cancel an existing review",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            }
+          ],
+          "method": "get",
+          "nickname": "Api::V1::Reservations#cancel"
+        }
+      ]
+    },
+    {
+      "path": "/reservations/{id}/details",
+      "operations": [
+        {
+          "summary": "Provide all reservation details for a hotel within a date-time range",
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "hotel_id",
+              "type": "integer",
+              "description": "Hotel ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "from",
+              "type": "date",
+              "description": "From",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "to",
+              "type": "date",
+              "description": "To",
+              "required": true
+            }
+          ],
+          "method": "post",
+          "nickname": "Api::V1::Reservations#details"
+        }
+      ]
+    },
+    {
+      "path": "/reservations/{id}/approve",
+      "operations": [
+        {
+          "summary": "Approves a reservation",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Reservation ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "table_id",
+              "type": "string",
+              "description": "Table ID",
+              "required": true
+            }
+          ],
+          "method": "post",
+          "nickname": "Api::V1::Reservations#approve"
+        }
+      ]
+    },
+    {
       "path": "/reservations",
       "operations": [
         {
@@ -32,6 +110,13 @@
               "name": "hotel_id",
               "type": "integer",
               "description": "Hotel ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "no_of_persons",
+              "type": "integer",
+              "description": "No of Persons",
               "required": true
             },
             {
@@ -84,7 +169,7 @@
       "path": "/reservations/{id}",
       "operations": [
         {
-          "summary": "Update an existing review",
+          "summary": "Update an existing reservation",
           "parameters": [
             {
               "paramType": "path",
@@ -95,28 +180,54 @@
             },
             {
               "paramType": "form",
-              "name": "title",
-              "type": "string",
-              "description": "Title",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "review",
-              "type": "string",
-              "description": "Review",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "rating",
+              "name": "no_of_persons",
               "type": "integer",
-              "description": "Rating",
+              "description": "No Of Persons",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "from",
+              "type": "date",
+              "description": "From",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "to",
+              "type": "date",
+              "description": "To",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "comment",
+              "type": "string",
+              "description": "Comment",
               "required": false
             }
           ],
           "method": "patch",
           "nickname": "Api::V1::Reservations#update"
+        }
+      ]
+    },
+    {
+      "path": "/reservations/{id}",
+      "operations": [
+        {
+          "summary": "Deletes an existing reservation",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": false
+            }
+          ],
+          "method": "delete",
+          "nickname": "Api::V1::Reservations#destroy"
         }
       ]
     }

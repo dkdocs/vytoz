@@ -57,6 +57,8 @@ Rails.application.routes.draw do
     resources :reservations do
       member do
         get 'cancel'
+        post 'details'
+        post 'approve'
       end
     end
 

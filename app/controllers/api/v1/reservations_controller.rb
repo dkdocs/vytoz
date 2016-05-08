@@ -58,7 +58,7 @@ class Api::V1::ReservationsController < Api::V1::ApiController
     if @reservation.save
       render json: { meta: meta_response( 200, 'all ok'), reservation: @reservation}
     else
-      render json: { meta: meta_response( 200, 'all ok'), reservation: @reservation}
+      render json: { meta: meta_response( 500, 'Server Error'), reservation: @reservation}
     end
   end
 
@@ -66,8 +66,8 @@ class Api::V1::ReservationsController < Api::V1::ApiController
   swagger_api :approve do
     summary 'Approves a reservation'
 
-    param :form, :id, :integer, :required, "Reservation ID"
-    param :form, :table_ids, :string, :required, "Table ID"
+    param :path, :id, :integer, :required, "Reservation ID"
+    param :form, :table_id, :string, :required, "Table ID"
   end
 
   def approve
@@ -79,8 +79,11 @@ class Api::V1::ReservationsController < Api::V1::ApiController
       return
     end
 
-    isApproved = @reservation.approve( params[table_ids])
-    # To Do
+    if @reservation.approve( params[:table_id])
+      render json: { meta: meta_response( 200, 'ok'), reservation: @reservation }
+    else
+      render json: { meta: meta_response( 500, 'Server Error'), reservation: @reservation}
+    end
   end
 
 
@@ -119,21 +122,21 @@ class Api::V1::ReservationsController < Api::V1::ApiController
 
   def cancel
     begin
-      @reservation = Reservation.find(params[:id])
+      reservation = Reservation.find(params[:id])
 
     rescue ActiveRecord::RecordNotFound
       render json: { meta: meta_response( 404, 'id doesn\'t exists'), reservation: @reservation}
       return
     end
 
-    # To Do
-    if @reservation.update_attributes(status: :hotel_cancelled)
+    #TO DO change status based on user or hotel 
+    if reservation.update(:status => :hotel_cancelled)
       render json: { meta: meta_response( 200, 'all ok'), reservation: @reservation}
     else
       render json: { meta: meta_response( 500, 'Server error'), reservation: @reservation}
     end
 
-  end;
+  end
 
   swagger_api :destroy do
     summary "Deletes an existing reservation"
@@ -156,8 +159,19 @@ class Api::V1::ReservationsController < Api::V1::ApiController
     end
   end
 
+  swagger_api :details do
+    summary "Provide all reservation details for a hotel within a date-time range"
+    param :form, :hotel_id, :integer, :required, "Hotel ID"
+    param :form, :from, :date, :required, "From"
+    param :form, :to, :date, :required, "To"
+  end
+  def details
+  	@details = Reservation.details(params)
+  	render json: { meta: meta_response( 200, 'all ok'), details: @details }
+  end
+
   private
   def reservation_params
-    params.permit(:customer_id, :hotel_id, :from, :to, :comment, :table_ids, :no_of_persons);
+    params.permit(:customer_id, :hotel_id, :from, :to, :comment, :table_id, :no_of_persons);
   end
 end
