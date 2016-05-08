@@ -1,5 +1,7 @@
 class Api::V1::OrderController < Api::V1::ApiController
 before_filter :authenticate
+  
+  respond_to :json
 
  swagger_controller :order, 'Order'
   swagger_api :validate do

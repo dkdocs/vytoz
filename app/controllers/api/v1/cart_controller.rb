@@ -1,7 +1,9 @@
 class Api::V1::CartController < Api::V1::ApiController
 before_filter :authenticate
 
-swagger_controller :cart, 'MenuItems'
+swagger_controller :cart, 'Cart'
+
+  respond_to :json
 
   swagger_api :create do
     summary 'Create Cart'
