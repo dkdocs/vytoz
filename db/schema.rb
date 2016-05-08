@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508131234) do
+
+ActiveRecord::Schema.define(version: 20160508090037) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -24,9 +28,9 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -43,8 +47,8 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "coupons", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -59,10 +63,10 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "wallet_id"
+    t.integer  "wallet_id",  null: false
   end
 
-  add_index "customers", ["wallet_id"], name: "index_customers_on_wallet_id"
+  add_index "customers", ["wallet_id"], name: "index_customers_on_wallet_id", using: :btree
 
   create_table "devices", force: :cascade do |t|
     t.string   "device_id"
@@ -74,16 +78,16 @@ ActiveRecord::Schema.define(version: 20160508131234) do
   create_table "hotel_charges", force: :cascade do |t|
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "hotel_id"
-    t.integer  "order_type_id"
+    t.integer  "hotel_id",      null: false
+    t.integer  "order_type_id", null: false
   end
 
-  add_index "hotel_charges", ["hotel_id"], name: "index_hotel_charges_on_hotel_id"
-  add_index "hotel_charges", ["order_type_id"], name: "index_hotel_charges_on_order_type_id"
+  add_index "hotel_charges", ["hotel_id"], name: "index_hotel_charges_on_hotel_id", using: :btree
+  add_index "hotel_charges", ["order_type_id"], name: "index_hotel_charges_on_order_type_id", using: :btree
 
   create_table "hotel_taxes", force: :cascade do |t|
-    t.integer  "hotel_id"
-    t.integer  "tax_type_id"
+    t.integer  "hotel_id",    null: false
+    t.integer  "tax_type_id", null: false
     t.decimal  "amount"
     t.decimal  "percent"
     t.boolean  "active"
@@ -91,8 +95,8 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "hotel_taxes", ["hotel_id"], name: "index_hotel_taxes_on_hotel_id"
-  add_index "hotel_taxes", ["tax_type_id"], name: "index_hotel_taxes_on_tax_type_id"
+  add_index "hotel_taxes", ["hotel_id"], name: "index_hotel_taxes_on_hotel_id", using: :btree
+  add_index "hotel_taxes", ["tax_type_id"], name: "index_hotel_taxes_on_tax_type_id", using: :btree
 
   create_table "hotels", force: :cascade do |t|
     t.string   "name"
@@ -103,10 +107,10 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.boolean  "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "manager_id"
+    t.integer  "manager_id", null: false
   end
 
-  add_index "hotels", ["manager_id"], name: "index_hotels_on_manager_id"
+  add_index "hotels", ["manager_id"], name: "index_hotels_on_manager_id", using: :btree
 
   create_table "managers", force: :cascade do |t|
     t.string   "name"
@@ -121,7 +125,7 @@ ActiveRecord::Schema.define(version: 20160508131234) do
   create_table "menu_items", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "menu_id"
+    t.integer  "menu_id",     null: false
     t.string   "name"
     t.string   "description"
     t.decimal  "price"
@@ -129,25 +133,25 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.boolean  "active"
   end
 
-  add_index "menu_items", ["menu_id"], name: "index_menu_items_on_menu_id"
+  add_index "menu_items", ["menu_id"], name: "index_menu_items_on_menu_id", using: :btree
 
   create_table "menus", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "hotel_id"
+    t.integer  "hotel_id",   null: false
     t.string   "name"
     t.boolean  "active"
   end
 
-  add_index "menus", ["hotel_id"], name: "index_menus_on_hotel_id"
+  add_index "menus", ["hotel_id"], name: "index_menus_on_hotel_id", using: :btree
 
   create_table "offers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "hotel_id"
+    t.integer  "hotel_id",   null: false
   end
 
-  add_index "offers", ["hotel_id"], name: "index_offers_on_hotel_id"
+  add_index "offers", ["hotel_id"], name: "index_offers_on_hotel_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -159,6 +163,7 @@ ActiveRecord::Schema.define(version: 20160508131234) do
 
   add_index "order_items", ["menu_item_id"], name: "index_order_items_on_menu_item_id"
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+
 
   create_table "order_types", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -184,36 +189,48 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.string   "remark"
   end
 
-  add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id"
-  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
-  add_index "orders", ["hotel_id"], name: "index_orders_on_hotel_id"
-  add_index "orders", ["order_type_id"], name: "index_orders_on_order_type_id"
+  add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id", using: :btree
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+  add_index "orders", ["hotel_id"], name: "index_orders_on_hotel_id", using: :btree
+  add_index "orders", ["order_type_id"], name: "index_orders_on_order_type_id", using: :btree
 
-  create_table "reservations", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "hotel_id"
-    t.integer  "customer_id"
+  create_table "reservation_details", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "reservation_id"
     t.integer  "table_id"
   end
 
-  add_index "reservations", ["customer_id"], name: "index_reservations_on_customer_id"
-  add_index "reservations", ["hotel_id"], name: "index_reservations_on_hotel_id"
-  add_index "reservations", ["table_id"], name: "index_reservations_on_table_id"
+  add_index "reservation_details", ["reservation_id"], name: "index_reservation_details_on_reservation_id", using: :btree
+  add_index "reservation_details", ["table_id"], name: "index_reservation_details_on_table_id", using: :btree
 
-  create_table "reviews", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "customer_id"
-    t.integer  "menu_item_id"
-    t.integer  "hotel_id"
-    t.string   "title"
-    t.string   "review"
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "hotel_id",                  null: false
+    t.integer  "customer_id",               null: false
+    t.integer  "status",        default: 0
+    t.string   "comment"
+    t.datetime "from"
+    t.datetime "to"
+    t.integer  "no_of_persons"
   end
 
-  add_index "reviews", ["customer_id"], name: "index_reviews_on_customer_id"
-  add_index "reviews", ["hotel_id"], name: "index_reviews_on_hotel_id"
-  add_index "reviews", ["menu_item_id"], name: "index_reviews_on_menu_item_id"
+  add_index "reservations", ["customer_id"], name: "index_reservations_on_customer_id", using: :btree
+  add_index "reservations", ["hotel_id"], name: "index_reservations_on_hotel_id", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "customer_id", null: false
+    t.integer  "hotel_id",    null: false
+    t.string   "title"
+    t.string   "review"
+    t.integer  "rating"
+  end
+
+  add_index "reviews", ["customer_id"], name: "index_reviews_on_customer_id", using: :btree
+  add_index "reviews", ["hotel_id"], name: "index_reviews_on_hotel_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id"
@@ -224,15 +241,16 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.string   "login_type"
   end
 
-  add_index "sessions", ["login_type", "login_id"], name: "index_sessions_on_login_type_and_login_id"
+  add_index "sessions", ["login_type", "login_id"], name: "index_sessions_on_login_type_and_login_id", using: :btree
 
   create_table "tables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "hotel_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "hotel_id",                   null: false
+    t.boolean  "status",     default: false
   end
 
-  add_index "tables", ["hotel_id"], name: "index_tables_on_hotel_id"
+  add_index "tables", ["hotel_id"], name: "index_tables_on_hotel_id", using: :btree
 
   create_table "tax_types", force: :cascade do |t|
     t.string   "name"
@@ -246,4 +264,25 @@ ActiveRecord::Schema.define(version: 20160508131234) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "customers", "wallets"
+  add_foreign_key "hotel_charges", "hotels"
+  add_foreign_key "hotel_charges", "order_types"
+  add_foreign_key "hotel_taxes", "hotels"
+  add_foreign_key "hotel_taxes", "tax_types"
+  add_foreign_key "hotels", "managers"
+  add_foreign_key "menu_items", "menus"
+  add_foreign_key "menus", "hotels"
+  add_foreign_key "offers", "hotels"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "coupons"
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "hotels"
+  add_foreign_key "orders", "order_types"
+  add_foreign_key "reservation_details", "reservations"
+  add_foreign_key "reservation_details", "tables"
+  add_foreign_key "reservations", "customers"
+  add_foreign_key "reservations", "hotels"
+  add_foreign_key "reviews", "customers"
+  add_foreign_key "reviews", "hotels"
+  add_foreign_key "tables", "hotels"
 end

@@ -1,0 +1,26 @@
+<p>
+	<strong>Hotel Id:</strong>
+	<%= @reservation.hotel_id %>
+</p>
+
+<p>
+	<strong>Table Id:</strong>
+	<%= @reservation.table_id %>
+</p>
+
+<p>
+	<strong>Customer Id:</strong>
+	<%= @reservation.customer_id %>	
+</p>
+
+<p>
+	<strong>Status:</strong>
+	<%= @reservation.status %>	
+</p>
+
+<p>
+	<strong>Comment:</strong>
+	<%= @reservation.comment %>
+</p>	
+<%= link_to 'Edit', edit_reservation_path(@reservation) %>
+<%= link_to 'Back', reservations_path %>

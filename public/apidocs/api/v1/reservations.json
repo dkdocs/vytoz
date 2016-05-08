@@ -2,43 +2,29 @@
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000/",
-  "resourcePath": "/reviews",
+  "resourcePath": "/reservations",
   "apis": [
     {
-      "path": "/reviews",
+      "path": "/reservations",
       "operations": [
         {
-          "summary": "Lists all the reviews",
+          "summary": "Lists all the reservations",
           "method": "get",
-          "nickname": "Api::V1::Reviews#index"
+          "nickname": "Api::V1::Reservations#index"
         }
       ]
     },
     {
-      "path": "/reviews",
+      "path": "/reservations",
       "operations": [
         {
-          "summary": "Create a new review",
+          "summary": "Create a new reservation",
           "parameters": [
             {
               "paramType": "form",
-              "name": "title",
-              "type": "string",
-              "description": "Title",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "review",
-              "type": "string",
-              "description": "Review",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "rating",
+              "name": "customer_id",
               "type": "integer",
-              "description": "Rating",
+              "description": "Customer ID",
               "required": true
             },
             {
@@ -50,22 +36,36 @@
             },
             {
               "paramType": "form",
-              "name": "customer_id",
-              "type": "integer",
-              "description": "Customer ID",
+              "name": "from",
+              "type": "date",
+              "description": "From",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "to",
+              "type": "date",
+              "description": "to",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "comment",
+              "type": "string",
+              "description": "Comment",
+              "required": false
             }
           ],
           "method": "post",
-          "nickname": "Api::V1::Reviews#create"
+          "nickname": "Api::V1::Reservations#create"
         }
       ]
     },
     {
-      "path": "/reviews/{id}",
+      "path": "/reservations/{id}",
       "operations": [
         {
-          "summary": "Show details of a review",
+          "summary": "Show details of a reservation",
           "parameters": [
             {
               "paramType": "path",
@@ -76,12 +76,12 @@
             }
           ],
           "method": "get",
-          "nickname": "Api::V1::Reviews#show"
+          "nickname": "Api::V1::Reservations#show"
         }
       ]
     },
     {
-      "path": "/reviews/{id}",
+      "path": "/reservations/{id}",
       "operations": [
         {
           "summary": "Update an existing review",
@@ -116,26 +116,7 @@
             }
           ],
           "method": "patch",
-          "nickname": "Api::V1::Reviews#update"
-        }
-      ]
-    },
-    {
-      "path": "/reviews/{id}",
-      "operations": [
-        {
-          "summary": "Deletes an existing review",
-          "parameters": [
-            {
-              "paramType": "path",
-              "name": "id",
-              "type": "integer",
-              "description": "ID",
-              "required": false
-            }
-          ],
-          "method": "delete",
-          "nickname": "Api::V1::Reviews#destroy"
+          "nickname": "Api::V1::Reservations#update"
         }
       ]
     }

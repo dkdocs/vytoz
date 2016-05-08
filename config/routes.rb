@@ -53,6 +53,12 @@ Rails.application.routes.draw do
     resources :reviews do
       
     end
+  
+    resources :reservations do
+      member do
+        get 'cancel'
+      end
+    end
 
 
   end
@@ -85,6 +91,4 @@ end
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-
 end
