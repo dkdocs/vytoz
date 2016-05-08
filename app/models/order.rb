@@ -5,6 +5,8 @@ class Order < ActiveRecord::Base
 	belongs_to :customer
 	has_one :coupon
 
+  after_commit :create_order_items, on: :create
+
 	def calculate_final_pricing(customer, requirements)
     self.customer = customer
     self.customer_address_id = requirements[:address]
@@ -31,6 +33,14 @@ class Order < ActiveRecord::Base
   def find_coupon_discount(cart)
   	0
   end
+
+
+  def create_order_items
+    current_user.cart.items.each do |item|
+      self.order_items.create(menu_item_id: item.id, quantity: item.quantity)
+    end
+  end
+
 
 
   def all_taxes

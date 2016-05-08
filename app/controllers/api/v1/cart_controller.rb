@@ -8,8 +8,6 @@ swagger_controller :cart, 'MenuItems'
     param :header, 'Session-Id', :string, :required, 'Session id'
     param :form, :cart_items, :json, :required, "Cart Items"
     param :form, :order_type, :string, :optional, "Order Type"
-    response :not_acceptable
-    response :not_found
     response :not_allowed
   end
 
@@ -34,7 +32,12 @@ swagger_controller :cart, 'MenuItems'
   	end
   end
 
-
+  swagger_api :get do
+    summary 'Get Cart'
+    param :header, 'Session-Id', :string, :required, 'Session id'
+    response :not_allowed
+  end
+  
   def index 
 	cart_session = (current_user.is_a? Customer) ? current_user.id.to_s + '-cart' : current_user.device_id + '-cart'
     redis_cart = redis.get(cart_session)

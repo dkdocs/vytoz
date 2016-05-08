@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428142322) do
+ActiveRecord::Schema.define(version: 20160508131234) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -150,11 +150,14 @@ ActiveRecord::Schema.define(version: 20160428142322) do
   add_index "offers", ["hotel_id"], name: "index_offers_on_hotel_id"
 
   create_table "order_items", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "order_id"
+    t.integer  "menu_item_id"
+    t.decimal  "quantity",     precision: 4
   end
 
+  add_index "order_items", ["menu_item_id"], name: "index_order_items_on_menu_item_id"
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
 
   create_table "order_types", force: :cascade do |t|
@@ -166,12 +169,19 @@ ActiveRecord::Schema.define(version: 20160428142322) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "hotel_id"
     t.integer  "order_type_id"
     t.integer  "customer_id"
     t.integer  "coupon_id"
+    t.decimal  "gross_total",     precision: 10, scale: 2
+    t.decimal  "net_total",       precision: 10, scale: 2
+    t.decimal  "discount",        precision: 10, scale: 2
+    t.decimal  "tax",             precision: 10, scale: 2
+    t.decimal  "total_payable",   precision: 10, scale: 2
+    t.decimal  "cashback_amount", precision: 10, scale: 2
+    t.string   "remark"
   end
 
   add_index "orders", ["coupon_id"], name: "index_orders_on_coupon_id"
