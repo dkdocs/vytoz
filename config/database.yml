@@ -13,10 +13,11 @@ development:
   host: localhost
   adapter: postgresql
   encoding: unicode
-  database: vytoz_development
+  database: dev-v
   pool: 5
   username: postgres
-  password: pass
+  password: password
+  port: 5432
 
 # development:
 #   <<: *default

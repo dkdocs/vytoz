@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   authenticate :admin_user do
-    get '/' => redirect('/docs/index.html?url=/apidocs/api-docs.json')
+    get '/' => redirect('/doc/index.html?url=/apidocs/api-docs.json')
   end
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.

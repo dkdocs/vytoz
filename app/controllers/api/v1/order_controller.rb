@@ -1,9 +1,10 @@
 class Api::V1::OrderController < Api::V1::ApiController
 before_filter :authenticate
+ 
+ swagger_controller :orders, 'Order'
   
   respond_to :json
 
- swagger_controller :order, 'Order'
   swagger_api :validate do
     summary 'validate'
     param :header, 'Session-Id', :string, :required, 'Session id'
@@ -12,8 +13,6 @@ before_filter :authenticate
     param :query, 'address_id', :string, :optional, 'address id'
     param :query, 'remark', :string, :optional, 'Remark'
     param :query, 'order_type', :optional, 'Optional Order Type'
-    response :method_not_allowed
-    response :unprocessable_entity
   end
 
     def validate
@@ -38,8 +37,6 @@ before_filter :authenticate
     param :query, 'address_id', :string, :optional, 'address id'
     param :query, 'remark', :string, :optional, 'Remark'
     param :query, 'order_type', :optional, 'Optional Order Type'
-    response :method_not_allowed
-    response :unprocessable_entity
   end
 
   def checkout

@@ -4,7 +4,4 @@ class ApiConstraints
     @default = options[:default]
   end
 
-  def matches?(req)
-    @default || req.headers['Accept'].include?("application/vnd.box8.v#{@version}")
-  end
 end

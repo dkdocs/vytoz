@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20160508090037) do
+ActiveRecord::Schema.define(version: 20160508131234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,14 +155,13 @@ ActiveRecord::Schema.define(version: 20160508090037) do
   create_table "order_items", force: :cascade do |t|
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "order_id"
+    t.integer  "order_id",                   null: false
     t.integer  "menu_item_id"
     t.decimal  "quantity",     precision: 4
   end
 
-  add_index "order_items", ["menu_item_id"], name: "index_order_items_on_menu_item_id"
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
-
+  add_index "order_items", ["menu_item_id"], name: "index_order_items_on_menu_item_id", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
 
   create_table "order_types", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -176,10 +174,10 @@ ActiveRecord::Schema.define(version: 20160508090037) do
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.integer  "hotel_id"
-    t.integer  "order_type_id"
-    t.integer  "customer_id"
-    t.integer  "coupon_id"
+    t.integer  "hotel_id",                                 null: false
+    t.integer  "order_type_id",                            null: false
+    t.integer  "customer_id",                              null: false
+    t.integer  "coupon_id",                                null: false
     t.decimal  "gross_total",     precision: 10, scale: 2
     t.decimal  "net_total",       precision: 10, scale: 2
     t.decimal  "discount",        precision: 10, scale: 2

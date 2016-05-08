@@ -1,7 +1,7 @@
 class Api::V1::CartController < Api::V1::ApiController
 before_filter :authenticate
 
-swagger_controller :cart, 'Cart'
+swagger_controller :carts, 'Cart'
 
   respond_to :json
 
@@ -10,7 +10,6 @@ swagger_controller :cart, 'Cart'
     param :header, 'Session-Id', :string, :required, 'Session id'
     param :form, :cart_items, :json, :required, "Cart Items"
     param :form, :order_type, :string, :optional, "Order Type"
-    response :not_allowed
   end
 
 
@@ -37,7 +36,6 @@ swagger_controller :cart, 'Cart'
   swagger_api :get do
     summary 'Get Cart'
     param :header, 'Session-Id', :string, :required, 'Session id'
-    response :not_allowed
   end
   
   def index 
