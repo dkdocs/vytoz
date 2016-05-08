@@ -18,6 +18,10 @@
     {
       "path": "/apidocs/api/v1/reviews.{format}",
       "description": " Reviews Controller"
+    },
+    {
+      "path": "/apidocs/api/v1/reservations.{format}",
+      "description": " Reservations Controller"
     }
   ]
 }
